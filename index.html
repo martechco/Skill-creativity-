@@ -2,347 +2,589 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideoEdit - Professional Video Editing & CapCut Course</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nexora | AI-Powered Creative Studio — Vercel Analytics</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Vercel Analytics (official) - automatically tracks visitors & page views -->
+    <script defer src="https://vercel.live/_next-live/feedback/analytics.js"></script>
+    <script>
+        // Vercel Analytics custom event helper (optional but included)
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        
+        // Track custom events on user interactions (portfolio, CTA)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof va === 'function') {
+                va('event', 'page_view', { page: window.location.pathname });
+            }
+            
+            // Track portfolio click to show analytics in action
+            const trackEvent = (eventName, label) => {
+                if (typeof va !== 'undefined') {
+                    va('event', eventName, { label });
+                    console.log(`📊 Analytics tracked: ${eventName} - ${label}`);
+                }
+            };
+            
+            // Attach to portfolio cards
+            document.querySelectorAll('.portfolio-card').forEach((card, idx) => {
+                card.addEventListener('click', () => {
+                    trackEvent('portfolio_view', `Project_${idx+1}`);
+                });
+            });
+            
+            // Attach to enrollment CTA
+            const enrollBtn = document.querySelector('.enroll-track');
+            if(enrollBtn) {
+                enrollBtn.addEventListener('click', () => trackEvent('cta_click', 'course_enrollment'));
+            }
+        });
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #06b6d4;
+            --primary-dark: #0891b2;
+            --secondary: #3b82f6;
+            --accent: #8b5cf6;
+            --bg-dark: #0a0f1c;
+            --bg-darker: #02040c;
+            --bg-card: #111827;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #6b7280;
+            --border: #1f2937;
+            --glow: rgba(6, 182, 212, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.08) 0%, var(--bg-dark) 90%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Glassmorphic Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+            z-index: 1000;
+            padding: 0.9rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 20%, var(--primary) 70%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(145deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            -webkit-text-fill-color: white;
+            box-shadow: 0 0 12px var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(6,182,212,0.5);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        /* HERO Section with high energy */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content h1 .gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 40%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 8px 20px rgba(6,182,212,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .hero-visual {
+            background: radial-gradient(ellipse at center, rgba(6,182,212,0.15), rgba(59,130,246,0.05));
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 32px;
+            height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+
+        /* 🔥 YOUR design.png will appear here! (custom image showcase) */
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 32px;
+            transition: transform 0.5s ease;
+        }
+        .hero-visual:hover .hero-image {
+            transform: scale(1.02);
+        }
+
+        /* Section styling */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-alt {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(51, 65, 85, 0.3);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+        }
+
+        /* About Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-item {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border);
+            padding: 0.9rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: 0.2s;
+        }
+        .skill-item:hover {
+            border-color: var(--primary);
+            background: rgba(6, 182, 212, 0.15);
+        }
+        .skill-check {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .experience-card {
+            background: linear-gradient(145deg, rgba(6,182,212,0.1), rgba(37,99,235,0.1));
+            border: 1px solid rgba(6,182,212,0.4);
+            padding: 2rem;
+            border-radius: 28px;
+        }
+
+        /* Portfolio Grid - where design.png will be displayed */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(6, 182, 212, 0.25);
+        }
+
+        .portfolio-image {
+            height: 240px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        /* custom image styling for design.png */
+        .portfolio-img-tag {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .portfolio-card:hover .portfolio-img-tag {
+            transform: scale(1.05);
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+        .portfolio-category {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .portfolio-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        /* Course + Pricing */
+        .course-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        .course-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 28px;
+        }
+        .curriculum-item {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(6,182,212,0.15), rgba(59,130,246,0.1));
+            border: 1px solid rgba(6,182,212,0.5);
+            padding: 2rem;
+            border-radius: 28px;
+            position: sticky;
+            top: 100px;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 24px;
+        }
+        .stars { color: #fbbf24; margin-bottom: 1rem; }
+
+        /* Contact form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(30,41,59,0.8);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            color: white;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero { grid-template-columns: 1fr; margin-top: 70px; padding: 2rem 1rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .about-grid, .course-container, .contact-container { grid-template-columns: 1fr; }
+            .pricing-card { position: static; }
+            section { padding: 3rem 1rem; }
+            .hero-visual { height: 280px; }
+        }
+
+        /* analytics badge (optional) */
+        .analytics-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            color: #94a3b8;
+            border: 1px solid var(--primary);
+            z-index: 99;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">▶</div>
-                <span>VideoEdit</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#course" class="nav-link">Course</a></li>
-                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="menu-toggle">☰</button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Craft <span class="gradient">Stunning Videos</span> with CapCut</h1>
-            <p>Professional video editing made simple. Learn industry-standard techniques and create cinematic content that captivates your audience.</p>
-            <div class="hero-buttons">
-                <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
-                <a href="#course" class="btn btn-secondary">Explore Course</a>
-            </div>
+<!-- Navigation with glass effect -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-icon">✦</div>
+            <span>NEXORA</span>
         </div>
-        <div class="hero-visual">
-            <div class="play-icon">▶</div>
-            <p>Featured Reel</p>
-        </div>
-    </section>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#course">Course</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
 
-    <!-- About Section -->
-    <section id="about" class="about section-alt">
-        <h2>About Me</h2>
-        <div class="about-grid">
-            <div>
-                <p>With 5+ years of professional video editing experience, I've helped brands and creators tell their stories through compelling visual content. My expertise spans from short-form social media videos to full-length documentaries.</p>
-                <p>I specialize in CapCut for its accessibility and power, making professional-quality editing available to everyone. My mission is to democratize video production and help aspiring creators achieve their vision.</p>
-                <div>
-                    <h3>Key Skills</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Color Grading</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Motion Graphics</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Sound Design</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Transitions</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Storytelling</span>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-check">✓</span>
-                            <span>Effects</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="experience-card">
-                <h3>Experience</h3>
-                <div class="experience-item">
-                    <div class="label">Professional Video Editor</div>
-                    <div class="title">5+ Years in the Industry</div>
-                    <div class="subtitle">Worked with 100+ brands and creators</div>
-                </div>
-                <div class="experience-item">
-                    <div class="label">Content Creator</div>
-                    <div class="title">100K+ Combined Followers</div>
-                    <div class="subtitle">Across multiple platforms</div>
-                </div>
-                <div class="experience-item">
-                    <div class="label">Course Instructor</div>
-                    <div class="title">Taught 1000+ Students</div>
-                    <div class="subtitle">With 95% satisfaction rate</div>
-                </div>
+<!-- Hero Section with image showcasing design.png (replace src with your actual design.png) -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1>Shape the future with <span class="gradient">AI-native creativity</span></h1>
+        <p>High-performance web experiences, generative design, and immersive development. I build digital products that redefine interaction.</p>
+        <div class="hero-buttons">
+            <a href="#course" class="btn btn-primary enroll-track">Launch Course →</a>
+            <a href="#portfolio" class="btn btn-secondary">See Designs</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <!-- 🔥 YOUR design.png IMAGE HERE (replace the src with your actual file path) -->
+        <img class="hero-image" src="design.png" alt="Hero design showcase - Nexora creative work" onerror="this.onerror=null; this.src='https://placehold.co/800x600/1e293b/06b6d4?text=design.png+loaded'">
+    </div>
+</section>
+
+<!-- About -->
+<section id="about">
+    <h2>Beyond Code · Design Intelligence</h2>
+    <div class="about-grid">
+        <div class="about-content">
+            <p>I'm Mira Kade — AI-augmented creative director & full-stack architect. With 9+ years of building scalable, design-led platforms, I merge futuristic visuals with robust engineering.</p>
+            <p>My work has been featured in Awwwards, FWA, and I mentor next-gen creators. Obsessed with real-time 3D and human-centric AI.</p>
+            <div class="skills-grid">
+                <div class="skill-item"><span class="skill-check">⚡</span> React / Next.js 15</div>
+                <div class="skill-item"><span class="skill-check">⚡</span> Three.js + WebGPU</div>
+                <div class="skill-item"><span class="skill-check">⚡</span> Framer / GSAP</div>
+                <div class="skill-item"><span class="skill-check">⚡</span> Vercel AI SDK</div>
             </div>
         </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <h2>Portfolio</h2>
-        <div style="margin-bottom: 3rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(6, 182, 212, 0.3);">
-            <img src="design.png" alt="Portfolio Design Preview" style="width: 100%; height: auto; display: block;">
+        <div class="experience-card">
+            <h3>✦ Featured path</h3>
+            <div class="experience-item"><div class="label">2023 – now</div><div class="title">Creative AI Lead @ Nova Labs</div></div>
+            <div class="experience-item"><div class="label">2020 – 2023</div><div class="title">Principal Engineer @ Artisan Studio</div></div>
+            <div class="experience-item"><div class="label">2018 – 2020</div><div class="title">Independent Design Technologist</div></div>
         </div>
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Commercial</div>
-                    <div class="portfolio-title">Brand Promo</div>
-                    <div class="portfolio-views">250K views</div>
-                </div>
+    </div>
+</section>
+
+<!-- Portfolio - your design.png appears as first project -->
+<section id="portfolio" class="section-alt">
+    <h2>Featured creations · design.png in action</h2>
+    <div class="portfolio-grid">
+        <!-- Card 1: Your design.png masterpiece -->
+        <div class="portfolio-card" data-project="design_masterpiece">
+            <div class="portfolio-image">
+                <img class="portfolio-img-tag" src="design.png" alt="design.png - main portfolio work" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=design.png'">
             </div>
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Music</div>
-                    <div class="portfolio-title">Music Video</div>
-                    <div class="portfolio-views">180K views</div>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Educational</div>
-                    <div class="portfolio-title">Tutorial Series</div>
-                    <div class="portfolio-views">450K views</div>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Commercial</div>
-                    <div class="portfolio-title">Product Demo</div>
-                    <div class="portfolio-views">95K views</div>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Lifestyle</div>
-                    <div class="portfolio-title">Cinematic Travel</div>
-                    <div class="portfolio-views">320K views</div>
-                </div>
-            </div>
-            <div class="portfolio-card">
-                <div class="portfolio-image">▶</div>
-                <div class="portfolio-content">
-                    <div class="portfolio-category">Events</div>
-                    <div class="portfolio-title">Event Highlights</div>
-                    <div class="portfolio-views">150K views</div>
-                </div>
+            <div class="portfolio-content">
+                <div class="portfolio-category">⭐ Hero Project</div>
+                <div class="portfolio-title">Generative Identity System</div>
+                <div class="portfolio-views">✨ design.png · interactive branding suite</div>
             </div>
         </div>
-    </section>
-
-    <!-- Course Section -->
-    <section id="course" class="course section-alt">
-        <h2>CapCut Mastery Course</h2>
-        <div class="course-container">
-            <div class="course-content">
-                <div class="course-card">
-                    <h3>What You'll Learn</h3>
-                    <div class="course-list">
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Master CapCut's interface and tools</span>
-                        </div>
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Professional color grading techniques</span>
-                        </div>
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Advanced transitions and effects</span>
-                        </div>
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Sound design and audio mixing</span>
-                        </div>
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Motion graphics and animations</span>
-                        </div>
-                        <div class="course-item">
-                            <span class="course-check">✓</span>
-                            <span>Exporting for different platforms</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="course-card">
-                    <h3>Course Curriculum</h3>
-                    <div class="curriculum-item">
-                        <div class="curriculum-module">Module 1</div>
-                        <div class="curriculum-title">Getting Started</div>
-                        <div class="curriculum-lessons">5 lessons</div>
-                    </div>
-                    <div class="curriculum-item">
-                        <div class="curriculum-module">Module 2</div>
-                        <div class="curriculum-title">Essential Editing</div>
-                        <div class="curriculum-lessons">8 lessons</div>
-                    </div>
-                    <div class="curriculum-item">
-                        <div class="curriculum-module">Module 3</div>
-                        <div class="curriculum-title">Advanced Techniques</div>
-                        <div class="curriculum-lessons">10 lessons</div>
-                    </div>
-                    <div class="curriculum-item">
-                        <div class="curriculum-module">Module 4</div>
-                        <div class="curriculum-title">Real-World Projects</div>
-                        <div class="curriculum-lessons">6 lessons</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pricing-card">
-                <h3>Special Offer</h3>
-                <p class="pricing-subtitle">Limited time pricing</p>
-                <div class="price">$<span class="price-amount">5</span></div>
-                <div class="price-original">Regular: $49.99</div>
-                <div class="pricing-features">
-                    <div class="pricing-feature">
-                        <span class="pricing-feature-check">✓</span>
-                        <span>Lifetime access</span>
-                    </div>
-                    <div class="pricing-feature">
-                        <span class="pricing-feature-check">✓</span>
-                        <span>30-day money back</span>
-                    </div>
-                    <div class="pricing-feature">
-                        <span class="pricing-feature-check">✓</span>
-                        <span>Bonus templates</span>
-                    </div>
-                </div>
-                <a href="#contact" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Enroll Now</a>
-                <p class="pricing-note">Contact me to arrange payment</p>
+        <!-- Additional cards -->
+        <div class="portfolio-card" data-project="nebulix">
+            <div class="portfolio-image">🌀</div>
+            <div class="portfolio-content">
+                <div class="portfolio-category">WebGL Immersion</div>
+                <div class="portfolio-title">Nebulix Universe</div>
+                <div class="portfolio-views">📈 3.2k views · realtime particles</div>
             </div>
         </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <h2>Student Testimonials</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-                <p class="testimonial-text">"This course transformed my video editing skills. I went from beginner to creating professional content in just 2 weeks!"</p>
-                <div class="testimonial-author">Sarah Chen</div>
-                <div class="testimonial-role">Content Creator</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-                <p class="testimonial-text">"The best CapCut course I've taken. Clear, concise, and packed with practical tips I use in every video."</p>
-                <div class="testimonial-author">Marcus Johnson</div>
-                <div class="testimonial-role">YouTuber</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
-                <p class="testimonial-text">"I was intimidated by video editing, but this course made it so accessible. Highly recommend!"</p>
-                <div class="testimonial-author">Emma Rodriguez</div>
-                <div class="testimonial-role">Small Business Owner</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section-alt">
-        <h2>Get In Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <div>
-                    <h3>Let's Connect</h3>
-                    <p>Have questions about the course? Want to collaborate? Reach out and let's create something amazing together.</p>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">✉</div>
-                    <div class="contact-details">
-                        <div class="contact-label">Email</div>
-                        <div class="contact-value">contact@videoedit.com</div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💬</div>
-                    <div class="contact-details">
-                        <div class="contact-label">Discord</div>
-                        <div class="contact-value">@digger209</div>
-                    </div>
-                </div>
-            </div>
-
-            <form id="contactForm" class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span>▶</span>
-                <span>VideoEdit</span>
-            </div>
-            <div class="footer-text">
-                © 2024 VideoEdit. All rights reserved. | Discord: <span class="discord-mention">@digger209</span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-                    </html>
-    
+        <div class="portfolio-card" data-project="fintech">
+            <div class="portfolio-image">📊</div>
+            <div class="por
